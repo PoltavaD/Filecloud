@@ -1,6 +1,15 @@
 <?php
 class Files extends CI_Controller
 {
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->database();
+        session_name('filecloud');
+        session_start();
+    }
+
     public function getFile()
 
     {
@@ -19,8 +28,6 @@ class Files extends CI_Controller
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
-        session_name('filecloud');
-        session_start();
 
         if (isset($_SESSION['id'])) {
             $user_id = $_SESSION['id'];
@@ -28,8 +35,6 @@ class Files extends CI_Controller
             header('location: /auth');
             exit();
         }
-
-        $this->load->database();
 
         $this->db->select('*')->where('id', $user_id);
         $query = $this->db->get('users');
@@ -95,8 +100,6 @@ class Files extends CI_Controller
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
-        session_name('filecloud');
-        session_start();
 
         if (isset($_SESSION['id'])) {
             $user_id = $_SESSION['id'];
@@ -104,8 +107,6 @@ class Files extends CI_Controller
             header('location: /auth');
             exit();
         }
-
-        $this->load->database();
 
         $this->db->select('*')->where('user_id', $user_id);
         $query = $this->db->get('pictures');
@@ -138,8 +139,6 @@ class Files extends CI_Controller
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
-        session_name('filecloud');
-        session_start();
 
         if (!isset($_SESSION['auth']) && $_SESSION['auth'] != 'ok' ) {
             header('location: /auth');
@@ -149,8 +148,6 @@ class Files extends CI_Controller
         if (isset($_GET['path'])) {
             $path = $_GET['path'];
         }
-
-        $this->load->database();
 
         $this->db->where('save_name', basename($path));
         $query = $this->db->get('pictures');

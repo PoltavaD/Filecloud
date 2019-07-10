@@ -57,6 +57,10 @@ class Auth extends CI_Controller
             exit();
         }
 
+        if(!$pass) {
+            ?><div><a href="/auth">Не верный пароль!</a></div><br><?
+        }
+
         if(!$result->num_rows) {
             mysqli_close($conn);
             ?><div><a href="/auth">Зарегестрируйтесь!</a></div><br><?
@@ -67,7 +71,6 @@ class Auth extends CI_Controller
             header('location: /files/getFile');
             exit();
         }
-
     }
 
     public function singup()
